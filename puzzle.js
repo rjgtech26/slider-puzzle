@@ -1,8 +1,8 @@
 (function () {
-
+    
     //Empty Cell setup-------------------------------------------------------
     $("td").click(tileClick);
-
+    
     function isEmptySquare($image) {
         var altText = $image.attr("alt");
         if (altText === "empty") {
@@ -131,4 +131,10 @@
         });
         return isWin;
     }
+    
+     var click = $("#reset").click(function(){
+         
+        
+     });
+    
 }());
