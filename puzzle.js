@@ -1,18 +1,19 @@
 (function () {
-    
-    //Empty Cell setup-------------------------------------------------------
-    $("td").click(tileClick);
-    
-    function isEmptySquare($image) {
+    var sliderPuzzle = {
+$("#reset").text("<p>Click on a puzzle piece to move it</p>");
+    setup : function () {    
+    $("td").click(sliderPuzzle.titleClick);
+    },
+   isEmptySquare: function($image) {
         var altText = $image.attr("alt");
         if (altText === "empty") {
             return true;
         } else {
             return false;
         }
-    }
+    },
 
-    function tileClick() {
+    titleClick : function() {
 
         var $td, $clickImg, $emptyImg, temp;
 
@@ -20,11 +21,11 @@
         $clickImg = $td.children().first();
 
         //See if we click on the empty spot to give message.
-        if (isEmptySquare($clickImg)) {
+        if (sliderPuzzle.isEmptySquare($clickImg)) {
             alert("Click on an image to the square to move it.");
         } else {
             //Look for empty square
-            $emptyImg = checkForEmpty($td);
+            $emptyImg = sliderPuzzle.checkForEmpty($td);
             console.log($emptyImg);
 
             if ($emptyImg === null) {
@@ -41,10 +42,10 @@
                 $emptyImg.attr("alt", temp);
             }
         }
-    }
+    },
     // End of Emtpy Cell setup -----------------------------------------------
 
-    function checkForEmpty($td) {
+   checkForEmpty : function($td) {
 
         var newRow, newCol, idToCheck, $img;
 
@@ -58,8 +59,8 @@
             newRow = parseInt(row) - 1;
             newCol = col;
 
-            $img = getImageFromCell(newRow, newCol);
-            if (isEmptySquare($img)) {
+            $img = sliderPuzzle.getImageFromCell(newRow, newCol);
+            if (sliderPuzzle.isEmptySquare($img)) {
                 //Found empty spot 
                 return $img;
             }
@@ -70,10 +71,10 @@
 
             newRow = parseInt(row) + 1;
             newCol = col;
-            $img = getImageFromCell(newRow, newCol);
+            $img = sliderPuzzle.getImageFromCell(newRow, newCol);
 
 
-            if (isEmptySquare($img)) {
+            if (sliderPuzzle.isEmptySquare($img)) {
                 //Found empty spot 
                 return $img;
             }
@@ -83,8 +84,8 @@
         if (col > 1) {
             newRow = row;
             newCol = parseInt(col) - 1;
-            $img = getImageFromCell(newRow, newCol);
-            if (isEmptySquare($img)) {
+            $img = sliderPuzzle.getImageFromCell(newRow, newCol);
+            if (sliderPuzzle.isEmptySquare($img)) {
                 //Found empty spot 
                 return $img;
             }
@@ -94,24 +95,24 @@
         if (col < 4) {
             newRow = row;
             newCol = parseInt(col) + 1;
-            $img = getImageFromCell(newRow, newCol);
-            if (isEmptySquare($img)) {
+            $img = sliderPuzzle.getImageFromCell(newRow, newCol);
+            if (sliderPuzzle.isEmptySquare($img)) {
                 //Found empty spot 
                 return $img;
             }
 
         }
         return null;
-    }
+    },
 
-    function getImageFromCell(row, col) {
+    getImageFromCell : function(row, col) {
         idToCheck = "#cell" + row + col;
         console.log("id below" + idToCheck);
         return $(idToCheck).children().first();
 
-    }
+    },
 
-    function checkForWin() {
+    checkForWin : function() {
         var i, counter, $allImages, isWin;
         var counter = 1;
         var allImages = $("img").each(function (index, element) {
@@ -132,9 +133,17 @@
         return isWin;
     }
     
-     var click = $("#reset").click(function(){
-         
-        
-     });
-    
+//     var click = $("#btnReset").click(function(){
+//         
+//        resetPuzzle();
+//         var random = 0;
+//         $("#puzzleGrid").each(function(index)
+//                               {
+//             random = Math.floor(Math.random()*15);
+//            
+//         
+//     });
+}
+
+sliderPuzzle.setup();
 }());
